@@ -1,0 +1,104 @@
+SETUP INSTRUCTIONS: running the audit with Groq (Llama, Gemma) instead of paid APIs
+===================================================================================
+
+A. FILES YOU NO LONGER NEED
+---------------------------
+Already removed from this folder:
+  - 2_run_chatgpt.py                 (only for OpenAI's paid API; replaced by 2_run_groq.py)
+  - responses/chatgpt_TEMPLATE.csv   (paste-sheet for ChatGPT, not used now)
+  - responses/gemini_TEMPLATE.csv    (paste-sheet for Gemini, not used now)
+
+Optional, delete if you will not use them:
+  - 2_run_claude.py      Needed ONLY if you run Claude through the paid Anthropic API.
+                         If you collect Claude's answers by pasting into claude.ai instead, delete it.
+  - 2_run_gemini.py      Needed ONLY if Groq does not host a Gemma model and you run Gemma through
+                         Google AI Studio instead (see step 4b). Otherwise delete it.
+
+Still needed (keep): questions.csv, prompts.csv, RUBRIC.md, README.md, 1_make_prompts.py,
+2_run_groq.py, 3_make_scoring_sheet.py, 4_analyze.py, requirements.txt.
+
+Note: README.md still mentions ChatGPT/Gemini/Claude API runs. Edit its workflow section to match
+what you actually did (the write-up should describe your real method).
+
+
+B. STEPS
+--------
+1. FINALISE THE QUESTIONS (before any model is run)
+   - Have a native Malayalam speaker check the Malayalam and Manglish lines in questions.csv.
+   - Have your clinician check the grader_check column.
+   - Edit questions.csv, then rebuild the prompts:
+         python 1_make_prompts.py
+     This writes prompts.csv (120 prompts). If you will paste Claude answers by hand, run instead:
+         python 1_make_prompts.py claude
+     which also creates responses/claude_TEMPLATE.csv.
+
+2. INSTALL
+         pip install -r requirements.txt
+
+3. GET A GROQ KEY
+   - Make an account at console.groq.com and create an API key.
+   - Check Groq's models page for the exact model names available today, and which are free-tier.
+   - Set the key in your terminal:
+         Mac/Linux:   export GROQ_API_KEY="your-key"
+         Windows PS:  $env:GROQ_API_KEY="your-key"
+
+4. RUN THE MODELS (one run per model; label becomes the model name in your results)
+   Test first with 4 prompts:
+         python 2_run_groq.py <llama-model-name> llama --limit 4
+   Open responses/llama.csv and check the replies look right (right language, no errors).
+   Then the full run:
+         python 2_run_groq.py <llama-model-name> llama
+   If it stops (rate limit, network), run the same command again. It resumes and retries empty rows.
+   If you hit rate limits often, add a longer wait:   --delay 6
+
+   4a. Gemma on Groq (only if a Gemma model is listed on Groq's models page):
+         python 2_run_groq.py <gemma-model-name> gemma
+   4b. If Groq has no Gemma model, run Gemma through Google AI Studio (free tier, needs its own key):
+         export GEMINI_API_KEY="your-key"
+         python 2_run_gemini.py <gemma-model-name> gemma
+       Copy the exact name from Google's models page.
+
+   Run each model in one sitting where you can, and write down: model name, provider, date, and
+   whether anything failed.
+
+5. (OPTIONAL) CLAUDE
+   - API: ANTHROPIC_API_KEY=... python 2_run_claude.py <model-name>     (paid)
+   - By hand: open a new chat per prompt, paste only the prompt, copy the reply into the response
+     column of responses/claude_TEMPLATE.csv, save as responses/claude.csv.
+   Make sure every model you compare was given the same prompts, one at a time.
+
+6. CHECK THE RESPONSE FILES
+   - responses/ should contain only finished files such as llama.csv, gemma.csv (and claude.csv).
+     Remove any *_TEMPLATE.csv you did not fill in (the scripts skip templates, but keep it tidy).
+   - In llama.csv / gemma.csv look at the finish_reason column. "length" means the reply was cut off
+     by the token cap. Note these, or re-run with a higher MAX_TOKENS in the script.
+
+7. SCORE
+         python 3_make_scoring_sheet.py
+   - Score results/scoring_sheet.csv using RUBRIC.md. Model names are hidden and order is shuffled.
+   - Give results/clinician_sample.csv to your clinician; save their scored copy as
+     results/clinician_scored.csv.
+   - Do not open results/key.csv until you finish scoring.
+
+8. ANALYSE
+         python 4_analyze.py results/clinician_scored.csv
+   Outputs are in results/: summary tables, chart_by_variant.png, candidate_failures.csv, and
+   agreement with the clinician in the terminal.
+
+9. WRITE UP AND PUBLISH
+   - Use the tables and chart, pick 2-3 failures from candidate_failures.csv (describe what the model
+     got wrong and why that is risky; do not add treatment advice of your own).
+   - State: pilot, small sample, informal scoring, models and free tiers change, and that Llama and
+     Gemma are open models of a different size/class from the commercial ones if Claude is compared.
+   - Push the code and questions.csv to GitHub. Never commit your API keys. Do not upload the
+     responses if a provider's terms restrict it; check before publishing.
+
+
+C. HIGH-RISK-ONLY RUN (52 prompts per model instead of 120)
+-----------------------------------------------------------
+Use this if free message limits make 120 prompts too many.
+  - Build prompts with:   python 1_make_prompts.py --high-risk claude
+    (this makes prompts.csv with 52 rows and responses/claude_TEMPLATE.csv)
+  - Run Llama/Gemma exactly as in step 4: they read prompts.csv, so they automatically use the same 52.
+  - Every model must be run on the SAME prompts. If you change prompts.csv, redo all models.
+  - Steps 6-9 are unchanged. State in the write-up that only high-risk questions were used.

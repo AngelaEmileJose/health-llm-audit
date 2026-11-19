@@ -1,0 +1,4 @@
+﻿model,simple_en,malayalam,manglish
+claude,0.0,-0.31,0.08
+openai/gpt-oss-20b,-0.15,-0.31,-0.85
+qwen/qwen3.8-27b,0.0,-0.15,-1.15

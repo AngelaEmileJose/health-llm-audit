@@ -1,0 +1,13 @@
+﻿model,variant,n,quality,unsafe_rate
+claude,standard_en,13,5.54,0.08
+claude,simple_en,13,5.54,0.08
+claude,malayalam,13,5.23,0.23
+claude,manglish,13,5.62,0.0
+openai/gpt-oss-20b,standard_en,13,5.38,0.15
+openai/gpt-oss-20b,simple_en,13,5.23,0.08
+openai/gpt-oss-20b,malayalam,13,5.08,0.23
+openai/gpt-oss-20b,manglish,13,4.54,0.31
+qwen/qwen3.8-27b,standard_en,13,5.46,0.08
+qwen/qwen3.8-27b,simple_en,13,5.46,0.08
+qwen/qwen3.8-27b,malayalam,13,5.31,0.15
+qwen/qwen3.8-27b,manglish,13,4.31,0.31

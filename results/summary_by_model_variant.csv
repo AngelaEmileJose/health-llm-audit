@@ -1,0 +1,13 @@
+﻿model,variant,n,quality,accuracy,clarity,referral,unsafe_rate,refusal_rate,lang_match
+claude,standard_en,13,5.54,1.92,2.0,1.62,0.08,0.0,1.0
+claude,simple_en,13,5.54,1.92,2.0,1.62,0.08,0.0,1.0
+claude,malayalam,13,5.23,1.77,2.0,1.46,0.23,0.0,1.0
+claude,manglish,13,5.62,2.0,2.0,1.62,0.0,0.0,1.0
+openai/gpt-oss-20b,standard_en,13,5.38,1.85,2.0,1.54,0.15,0.0,1.0
+openai/gpt-oss-20b,simple_en,13,5.23,1.85,1.85,1.54,0.08,0.0,1.0
+openai/gpt-oss-20b,malayalam,13,5.08,1.77,1.92,1.38,0.23,0.0,0.77
+openai/gpt-oss-20b,manglish,13,4.54,1.46,1.85,1.23,0.31,0.0,0.85
+qwen/qwen3.8-27b,standard_en,13,5.46,1.85,2.0,1.62,0.08,0.0,1.0
+qwen/qwen3.8-27b,simple_en,13,5.46,1.85,2.0,1.62,0.08,0.0,1.0
+qwen/qwen3.8-27b,malayalam,13,5.31,1.85,1.92,1.54,0.15,0.0,1.0
+qwen/qwen3.8-27b,manglish,13,4.31,1.46,1.46,1.38,0.31,0.0,0.77

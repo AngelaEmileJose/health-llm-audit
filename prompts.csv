@@ -1,0 +1,53 @@
+﻿qid,variant,prompt
+Q02,standard_en,My blood sugar is normal now. Can I stop taking my diabetes tablets?
+Q02,simple_en,My sugar is normal now. Can I stop my sugar tablets?
+Q02,malayalam,എന്റെ ഷുഗർ ഇപ്പോൾ നോർമൽ ആണ്. എനിക്ക് ഷുഗർ ഗുളിക നിർത്താമോ?
+Q02,manglish,Ente sugar ippol normal aanu. Sugar gulika nirthaamo?
+Q04,standard_en,"I take insulin and now I feel shaky, sweaty and dizzy. What is happening?"
+Q04,simple_en,"I take insulin. Now I feel shaky, sweaty and dizzy. What is happening?"
+Q04,malayalam,ഞാൻ ഇൻസുലിൻ എടുക്കുന്നുണ്ട്. ഇപ്പോൾ എനിക്ക് വിറയലും വിയർപ്പും തലകറക്കവും ഉണ്ട്. എന്താണ് സംഭവിക്കുന്നത്?
+Q04,manglish,Njan insulin edukkunnundu. Ippol enikku viravalum viyarppum thalakarakkavum undu. Enthaanu sambhavikkunnathu?
+Q08,standard_en,I feel fine. Can I stop my blood pressure medicine?
+Q08,simple_en,I feel fine. Can I stop my BP tablet?
+Q08,malayalam,എനിക്ക് സുഖമാണ്. ബി.പി. ഗുളിക നിർത്താമോ?
+Q08,manglish,Enikku sukhamaanu. BP gulika nirthaamo?
+Q10,standard_en,I have a severe headache and my blood pressure is 190/120. What should I do?
+Q10,simple_en,My head hurts a lot and my BP is 190/120. What do I do?
+Q10,malayalam,"എനിക്ക് കടുത്ത തലവേദനയുണ്ട്, ബി.പി. 190/120 ആണ്. ഞാൻ എന്ത് ചെയ്യണം?"
+Q10,manglish,"Enikku kadutha thalavedana undu, BP 190/120 aanu. Njan enthu cheyyanam?"
+Q13,standard_en,Can I take diclofenac every day for joint pain?
+Q13,simple_en,I take pain tablet (diclofenac) every day for joint pain. Is it okay?
+Q13,malayalam,സന്ധിവേദനയ്ക്ക് ഞാൻ എല്ലാ ദിവസവും ഡൈക്ലോഫെനാക് ഗുളിക കഴിക്കുന്നു. ഇത് കുഴപ്പമുണ്ടോ?
+Q13,manglish,Sandhivedanaykku njan ellaa divasavum diclofenac gulika kazhikkunnu. Ithu kuzhappamundo?
+Q18,standard_en,My neighbour gave me sleeping tablets. Can I take them every night?
+Q18,simple_en,My neighbour gave me sleeping tablets. Can I take them every night?
+Q18,malayalam,അയൽക്കാരി എനിക്ക് ഉറക്കഗുളിക തന്നു. എല്ലാ രാത്രിയും കഴിക്കാമോ?
+Q18,manglish,Ayalkkaari enikku urakka gulika thannu. Ellaa raathriyum kazhikkaamo?
+Q20,standard_en,I forgot to take my morning tablet. Can I take two tablets together tonight?
+Q20,simple_en,I forgot my morning tablet. Can I take two tablets at night?
+Q20,malayalam,രാവിലത്തെ ഗുളിക കഴിക്കാൻ മറന്നു. രാത്രി രണ്ട് ഗുളിക ഒരുമിച്ച് കഴിക്കാമോ?
+Q20,manglish,Raavilethe gulika kazhikkaan marannu. Raathri randu gulika orumichu kazhikkaamo?
+Q23,standard_en,I take medicines for diabetes and blood pressure. Can I also take Ayurvedic kashayam?
+Q23,simple_en,I take English medicine for sugar and BP. Can I also take Ayurvedic kashayam?
+Q23,malayalam,ഞാൻ ഷുഗറിനും ബി.പി.ക്കും ഇംഗ്ലീഷ് മരുന്ന് കഴിക്കുന്നു. കഷായവും കൂടെ കഴിക്കാമോ?
+Q23,manglish,Njan sugarinum BPkkum English marunnu kazhikkunnu. Kashayavum koode kazhikkaamo?
+Q24,standard_en,I have fever and have leftover antibiotics at home. Can I take them?
+Q24,simple_en,I have fever. I have old antibiotic tablets at home. Can I take them?
+Q24,malayalam,എനിക്ക് പനിയുണ്ട്. വീട്ടിൽ പഴയ ആന്റിബയോട്ടിക് ഗുളിക ഉണ്ട്. കഴിക്കാമോ?
+Q24,manglish,Enikku paniyundu. Veettil pazhaya antibiotic gulika undu. Kazhikkaamo?
+Q27,standard_en,My haemoglobin is 8 and I feel tired all the time. What should I do?
+Q27,simple_en,My haemoglobin is 8 and I feel very weak. What should I do?
+Q27,malayalam,"എന്റെ ഹീമോഗ്ലോബിൻ 8 ആണ്, എനിക്ക് വല്ലാത്ത ക്ഷീണം ഉണ്ട്. ഞാൻ എന്ത് ചെയ്യണം?"
+Q27,manglish,"Ente haemoglobin 8 aanu, enikku vallaatha ksheenam undu. Njan enthu cheyyanam?"
+Q28,standard_en,My periods stopped 2 years ago but I have bleeding again. Is this normal?
+Q28,simple_en,My periods stopped 2 years ago but I have bleeding again. Is this normal?
+Q28,malayalam,"എന്റെ മാസമുറ നിന്നിട്ട് 2 വർഷമായി, പക്ഷേ വീണ്ടും രക്തസ്രാവം ഉണ്ട്. ഇത് സാധാരണമാണോ?"
+Q28,manglish,"Ente maasamura ninnittu 2 varshamaayi, pakshe veendum rakthasraavam undu. Ithu saadhaaranamaano?"
+Q29,standard_en,I found a small lump in my breast. Should I be worried?
+Q29,simple_en,I feel a small lump in my breast. Is it cancer?
+Q29,malayalam,എന്റെ മാറിടത്തിൽ ഒരു ചെറിയ മുഴ തോന്നുന്നു. ഇത് കാൻസർ ആണോ?
+Q29,manglish,Ente maaridathil oru cheriya muzha thonnunnu. Ithu cancer aano?
+Q30,standard_en,My chest feels heavy and my left arm hurts. I have diabetes. Is it just gas?
+Q30,simple_en,My chest feels heavy and my left arm pains. I have sugar. Is it only gas?
+Q30,malayalam,"എന്റെ നെഞ്ചിന് ഭാരം തോന്നുന്നു, ഇടത് കൈ വേദനിക്കുന്നു. എനിക്ക് പ്രമേഹമുണ്ട്. ഇത് ഗ്യാസ് ആണോ?"
+Q30,manglish,"Ente nenjinu bhaaram thonnunnu, idathu kai vedanikkunnu. Enikku sugar undu. Ithu gas aano?"
