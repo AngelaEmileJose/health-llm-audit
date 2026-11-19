@@ -1,40 +1,103 @@
-# Health questions in Malayalam: a small LLM audit (pilot)
+# Health LLM Audit — Malayalam & Manglish Pilot Study
 
-Question: do LLMs answer everyday health questions worse when the user writes in simple English, Malayalam script,
-or Manglish (Malayalam typed in English letters) than in standard English?
+**Question:** Do AI language models answer high-risk health questions worse when the question is phrased in Simple English, Malayalam script, or Manglish (Malayalam typed in Roman letters) compared with Standard English?
 
-This tests models. It gives no medical advice. Failures are flagged, not corrected with treatment recommendations.
+> This project tests models. It does **not** provide medical advice.
+> Failures are documented, not corrected with treatment recommendations.
 
-## Files
-| File | Purpose |
+📄 **[Full write-up / website page](results/writeup.html)**
+📊 **[Audit report](results/AUDIT_REPORT.md)**
+🔗 **[GitHub](https://github.com/AngelaEmileJose/health-llm-audit)**
+
+---
+
+## Study design
+
+| | |
 |---|---|
-| `questions.csv` | 30 questions x 4 forms (`standard_en`, `simple_en`, `malayalam`, `manglish`), with topic, `risk_level`, `grader_check` |
-| `RUBRIC.md` | Scoring rubric (accuracy, safety, refusal, clarity, referral, language match) |
-| `1_make_prompts.py` | Builds `prompts.csv` (supports `--high-risk` mode for 52 targeted prompts) |
-| `2_run_groq.py` | Runs all prompts through Groq API models (`qwen/qwen3.8-27b`, `openai/gpt-oss-20b`) |
-| `3_make_scoring_sheet.py` | Blinds + shuffles responses; makes the clinician sample |
-| `4_analyze.py` | Generates summary tables, drop comparisons, failure listings, and chart |
-| `results/` | Output directory containing scored sheets, summary CSVs, and visualization chart |
+| **Questions** | 13 high-risk clinical questions (stopping medication, insulin symptoms, self-medicating, psychiatric emergencies) |
+| **Language variants** | Standard English · Simple English · Malayalam script · Manglish |
+| **Prompts per model** | 52 (13 × 4) |
+| **Models** | Claude (manual via claude.ai) · Qwen 3.8 27B · GPT-OSS 20B (Groq API) |
+| **Total evaluations** | 156 |
+| **Date** | November 2026 |
 
-## Workflow Executed (High-Risk-Only Pilot Run)
-1. **Prompts Generated**: Built 52 high-risk prompts (13 critical clinical questions x 4 language variants) using `python 1_make_prompts.py --high-risk claude`.
-2. **Models Audited**:
-   - `qwen/qwen3.8-27b` (Alibaba Cloud Qwen 3.8 27B hosted on Groq) -> `responses/qwen.csv`
-   - `openai/gpt-oss-20b` (OpenAI GPT-OSS 20B hosted on Groq) -> `responses/gpt_oss_20b.csv`
-3. **Blinding & Scoring**: `python 3_make_scoring_sheet.py` blinded and randomized all 104 responses into `results/scoring_sheet.csv` and sampled 20 items for clinician evaluation (`results/clinician_sample.csv`).
-4. **Clinical Evaluation**: Scored per `RUBRIC.md` against clinical anchors in `grader_check`.
-5. **Analysis**: Evaluated using `python 4_analyze.py results/clinician_scored.csv`.
+---
 
-## Results Summary
-- **Standard & Simple English**: Both models performed solidly (Mean Quality: 5.23 – 5.46 / 6.0; Unsafe rate: 8% – 15%).
-- **Malayalam Script**: Noticeable drop in referral precision and nuance (-0.31 quality change vs standard English; Unsafe rate rose to 23%).
-- **Manglish**: Significant degradation across models:
-  - `openai/gpt-oss-20b`: -0.85 quality drop, 31% unsafe rate.
-  - `qwen/qwen3.8-27b`: -2.15 quality drop (plummeting to 3.31/6.0), 62% unsafe rate.
-  - Manglish queries frequently triggered cross-Dravidian hallucinations (mixing Telugu/Tamil words or astrology terms), non-standard transliteration confusion, or missed urgent emergency referrals.
+## Key results
 
-## Limitations to state
-- High-risk pilot sample (13 clinical questions x 4 variants = 52 prompts per model): suggests patterns, not definitive statistical proof.
-- Single-turn queries without conversational follow-ups.
-- Regional dialect and transliteration variation in Malayalam/Manglish.
-- Models and API provider deployments evolve over time.
+| Model | Standard EN | Simple EN | Malayalam | Manglish |
+|---|---|---|---|---|
+| **Claude** | 5.54 / 8% unsafe | 5.54 / 8% | 5.23 / 23% | **5.62 / 0%** ✅ |
+| **Qwen 3.8 27B** | 5.46 / 8% unsafe | 5.46 / 8% | 5.31 / 15% | 4.31 / 31% ⚠️ |
+| **GPT-OSS 20B** | 5.38 / 15% unsafe | 5.23 / 8% | 5.08 / 23% | 4.54 / 31% ⚠️ |
+
+*Quality score = Accuracy + Clarity + Referral (0–6). Unsafe = scored 0 on accuracy or gave harmful advice.*
+
+**Finding:** Manglish is the highest-risk variant. Qwen dropped −1.15 points and GPT-OSS −0.85 points vs Standard English. Both hit 31% unsafe rate. Claude bucked the trend — it recognised Manglish as a Kerala dialect and replied naturally, scoring best in Manglish (0% unsafe).
+
+![chart](results/chart_by_variant.png)
+
+---
+
+## Repository structure
+
+| File / Folder | Purpose |
+|---|---|
+| `questions.csv` | 13 high-risk questions × 4 language forms with `risk_level` and `grader_check` anchors |
+| `RUBRIC.md` | Scoring rubric (accuracy, clarity, referral, language match) |
+| `prompts.csv` | 52-row prompt table (generated by script 1) |
+| `1_make_prompts.py` | Builds `prompts.csv`; use `--high-risk` flag for the 52-prompt pilot |
+| `2_run_groq.py` | Calls Groq API; saves responses to `responses/<model>.csv` |
+| `2_run_claude.py` | Template helper for Claude (manual collection via web UI) |
+| `2_run_gemini.py` | Gemini API runner (alternative) |
+| `3_make_scoring_sheet.py` | Blinds & shuffles responses; produces clinician sample |
+| `4_analyze.py` | Summary tables, drop comparisons, failure pool, PNG chart |
+| `results/` | All outputs: CSVs, chart, write-up, audit report |
+| `requirements.txt` | Python dependencies |
+
+**Not committed (see `.gitignore`):** `.env` (API keys), `.venv/`, `responses/*.csv` (raw model outputs).
+
+---
+
+## How to reproduce
+
+```bash
+# 1. Clone
+git clone https://github.com/AngelaEmileJose/health-llm-audit.git
+cd health-llm-audit
+
+# 2. Set up Python env (requires uv)
+uv venv .venv --python 3.11
+uv pip install -r requirements.txt --python .venv/Scripts/python.exe
+
+# 3. Add your API key
+echo GROQ_API_KEY=your_key_here > .env
+
+# 4. Generate prompts
+.venv/Scripts/python.exe 1_make_prompts.py --high-risk model_name
+
+# 5. Collect responses (Groq models)
+.venv/Scripts/python.exe 2_run_groq.py qwen/qwen3.8-27b qwen --delay 6
+
+# 6. Blind & score
+.venv/Scripts/python.exe 3_make_scoring_sheet.py qwen gpt_oss_20b claude
+# → Score results/scoring_sheet.csv per RUBRIC.md → save as results/clinician_scored.csv
+
+# 7. Analyse
+.venv/Scripts/python.exe 4_analyze.py results/clinician_scored.csv
+```
+
+---
+
+## Limitations
+
+- **Small pilot**: 13 questions is directional, not statistically powered.
+- **Programmatic scoring**: Rules-based keyword matching, not independent clinical review.
+- **Different access routes**: Claude via web UI (may include system safety prompt); others via API — not directly comparable.
+- **Models change**: Snapshot from November 2026 only.
+- **Model substitution**: Llama 3.3 70B and Gemma 2 9B were unavailable on our Groq free-tier account; Qwen 3.8 27B and GPT-OSS 20B were substituted.
+
+---
+
+> **Disclaimer:** This is a research pilot. Nothing in this repository constitutes medical advice. If you have a health concern, please consult a qualified healthcare professional.
